@@ -9,14 +9,14 @@ Gradle
 ======
 
 ```groovy
-testCompile 'de.jodamob.android:mockitoid:1.2.4'
+testCompile `de.jodamob.android:mockitoid:0.1`
  
 ```
 
 Asserts
 =======
 write 
-'anyActivity()' instead of 'any(Activity.class)'
+`anyActivity()` instead of `any(Activity.class)`
 in mockito verification.
 
 example:
@@ -52,11 +52,11 @@ mockBundle()
 ```
 
 some mocks can have small behavior:
-'mockTextView("test")' given a Textview that will return an Editable that has string "test"
+`mockTextView("test")` given a Textview that will return an Editable that has string "test"
 
-'mockFragmentManager(FragmentTransaction)' will return this fragmenttransaction for every transaction started
+`mockFragmentManager(FragmentTransaction)` will return this fragmenttransaction for every transaction started
 
-'mockMenuItem(id)' where id will be the itemId that will return a MenuItem mock for
+`mockMenuItem(id)` where id will be the itemId that will return a MenuItem mock for
 ..
 
 
