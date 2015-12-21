@@ -9,7 +9,7 @@ Gradle
 ======
 
 ```groovy
-testCompile `de.jodamob.android:mockitoid:0.1`
+testCompile `de.jodamob.android:mockitoid:0.2`
  
 ```
 
