@@ -165,6 +165,11 @@ public class AndroidMocks {
         return field;
     }
 
+    public static EditText mockEditText(String s) {
+        return mockEditText(s);
+    }
+
+    @Deprecated
     public static EditText mockEditField(String s) {
         EditText field = mock(EditText.class);
         return prepare(s, field);
