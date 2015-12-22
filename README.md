@@ -62,4 +62,4 @@ some mocks can have small behavior:
 
 
 Licensed under MIT license
-(c) 2014 Danny Preussler
+(c) 2015 Danny Preussler
