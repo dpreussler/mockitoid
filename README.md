@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/dpreussler/mockitoid.svg?branch=master)](https://travis-ci.org/dpreussler/mockitoid)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.jodamob.android/mockitoid/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.jodamob.android/mockitoid
 
 mockitoid
 ==========
