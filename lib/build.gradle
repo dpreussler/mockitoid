@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+
+/*
+ * Gets the version name from the latest Git tag
+ */
+def getVersionName = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        ignoreExitValue = true
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+version = getVersionName()
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 12
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile 'org.mockito:mockito-all:1.9.5'
+    testCompile 'junit:junit:4.12'
+}
+
+
+apply from: 'https://raw.githubusercontent.com/shamanland/gradle-mvn-push/cc18d56549cdea03f744b6fff27911569394073e/gradle-mvn-push.gradle'

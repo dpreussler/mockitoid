@@ -10,7 +10,7 @@ Gradle
 ======
 
 ```groovy
-testCompile 'de.jodamob.android:mockitoid:0.2'
+testCompile 'de.jodamob.android:mockitoid:0.5'
  
 ```
 
@@ -63,4 +63,4 @@ some mocks can have small behavior:
 
 
 Licensed under MIT license
-(c) 2015 Danny Preussler
+(c) 2015-2016 Danny Preussler

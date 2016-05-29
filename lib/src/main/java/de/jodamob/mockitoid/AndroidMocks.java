@@ -1,5 +1,6 @@
 package de.jodamob.mockitoid;
 
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyFloat;
@@ -159,20 +160,25 @@ public class AndroidMocks {
         return value;
     }
 
-    public static EditText mockEditField(Editable editable) {
+    public static EditText mockEditText(Editable editable) {
         EditText field = mock(EditText.class);
         when(field.getText()).thenReturn(editable);
         return field;
     }
 
+    @Deprecated
+    public static EditText mockEditField(Editable editable) {
+        return mockEditText(editable);
+    }
+
     public static EditText mockEditText(String s) {
-        return mockEditText(s);
+        EditText field = mock(EditText.class);
+        return prepare(s, field);
     }
 
     @Deprecated
     public static EditText mockEditField(String s) {
-        EditText field = mock(EditText.class);
-        return prepare(s, field);
+        return mockEditText(s);
     }
 
     public static Resources mockResources() {

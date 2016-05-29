@@ -1,6 +1,14 @@
-language: java
+language: android
+jdk: oraclejdk7
 
-install:
-    - true
+android:
+  components:
+    - tools
+    - build-tools-23.0.2
+    - android-23
+    - extra-android-m2repository
 
-script: TERM=dumb ./gradlew test
+script:
+    - echo "Travis branch is $TRAVIS_BRANCH"
+    - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
+    - ./gradlew assembleRelease --info
