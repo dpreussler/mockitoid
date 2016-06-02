@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
 
 /*
  * Gets the version name from the latest Git tag
@@ -15,7 +14,6 @@ def getVersionName = { ->
 }
 
 version = getVersionName()
-group = 'de.jodamob.android'
 
 android {
     compileSdkVersion 23
@@ -24,6 +22,10 @@ android {
     defaultConfig {
         minSdkVersion 12
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -31,43 +33,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.project {
-                name 'mockitoid'
-                packaging 'apk'
-                description 'Mockito mocks and asserts for android'
-                url 'https://github.com/dpreussler/mockitoid'
-
-                scm {
-                    url 'scm:git@github.com:dpreussler/mockitoid.git'
-                    connection 'scm:git@github.com:dpreussler/mockitoid.git'
-                    developerConnection 'scm:git@github.com:dpreussler/mockitoid.git'
-                }
-
-                licenses {
-                    license {
-                        name 'The MIT License (MIT)'
-                        url 'https://github.com/dpreussler/jodamoblog/blob/master/LICENSE'
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'dpreussler'
-                        name 'Danny Preussler'
-                    }
-                }
-            }
-        }
-    }
-}
-
+apply from: 'https://raw.githubusercontent.com/shamanland/gradle-mvn-push/cc18d56549cdea03f744b6fff27911569394073e/gradle-mvn-push.gradle'
