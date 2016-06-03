@@ -1,102 +1,23 @@
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-/*
- * Gets the version name from the latest Git tag
- */
-def getVersionName = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-	    ignoreExitValue = true
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
-version = getVersionName()
-group = 'de.jodamob.android'
-
-
-configurations {
-    provided
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-	compile 'org.mockito:mockito-all:1.9.5'
-    provided 'org.robolectric:android-all:5.1.1_r9-robolectric-0'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from 'build/docs/javadoc'
-}
-
-sourceSets {
-    main { compileClasspath += configurations.provided }
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives jar
-    archives javadocJar
-    archives sourcesJar
-}
-
-signing {
-    sign configurations.archives
-}
-
-compileJava {
-  sourceCompatibility = 1.6
-  targetCompatibility = 1.6
-}
-
-uploadArchives {
+buildscript {
     repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.project {
-                name 'mockitoid'
-                packaging 'jar'
-                description 'Mockito mocks and asserts for android'
-                url 'https://github.com/dpreussler/mockitoid'
-
-                scm {
-                    url 'scm:git@github.com:dpreussler/mockitoid.git'
-                    connection 'scm:git@github.com:dpreussler/mockitoid.git'
-                    developerConnection 'scm:git@github.com:dpreussler/mockitoid.git'
-                }
-
-                licenses {
-                    license {
-                        name 'The MIT License (MIT)'
-                        url 'https://github.com/dpreussler/jodamoblog/blob/master/LICENSE'
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'dpreussler'
-                        name 'Danny Preussler'
-                    }
-                }
-            }
-        }
+        jcenter()
     }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

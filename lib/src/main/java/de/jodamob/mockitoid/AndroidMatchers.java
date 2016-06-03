@@ -2,6 +2,8 @@ package de.jodamob.mockitoid;
 
 import static org.mockito.Matchers.any;
 
+import android.os.Bundle;
+import android.os.Parcel;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -40,6 +42,14 @@ public class AndroidMatchers {
 
     public static Intent anyIntent() {
         return any(Intent.class);
+    }
+
+    public static Bundle anyBundle() {
+        return any(Bundle.class);
+    }
+
+    public static Parcel anyParcel() {
+        return any(Parcel.class);
     }
 
     public static FragmentManager anyFragmentManager() {
