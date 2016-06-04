@@ -30,7 +30,10 @@ android {
 
 dependencies {
     compile 'org.mockito:mockito-all:1.9.5'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.easytesting:fest-assert-core:2.0M10'
 }
 
 

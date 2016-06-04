@@ -8,6 +8,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anySetOf;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,19 +27,29 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
+import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.mockito.ArgumentCaptor;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 public class AndroidMocks {
     public static Context mockContext() {
@@ -78,6 +89,12 @@ public class AndroidMocks {
 
     public static View mockView() {
         return mock(View.class);
+    }
+
+    public static View mockView(Resources resources) {
+        View mock = mock(View.class);
+        when(mock.getResources()).thenReturn(resources);
+        return mock;
     }
 
     @SuppressLint("NewApi")
@@ -133,13 +150,17 @@ public class AndroidMocks {
         return mock(Activity.class);
     }
 
+    public static Application mockApplication() {
+        return mock(Application.class);
+    }
+
     public static FragmentManager mockFragmentManager() {
         FragmentTransaction transaction = mock(FragmentTransaction.class);
         return mockFragmentManager(transaction);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    @SuppressLint("CommitTransaction")
+    @SuppressLint({ "CommitTransaction", "NewApi" })
     public static FragmentManager mockFragmentManager(FragmentTransaction transaction) {
         FragmentManager fragmentManager = mock(FragmentManager.class);
         when(fragmentManager.beginTransaction()).thenReturn(transaction);
@@ -239,5 +260,55 @@ public class AndroidMocks {
         when(builder.setPositiveButton(anyInt(), positive.capture())).thenReturn(builder);
         when(builder.setNegativeButton(anyInt(), negative.capture())).thenReturn(builder);
         return builder;
+    }
+
+    public static CheckBox mockCheckBox() {
+        return mock(CheckBox.class);
+    }
+
+    public static WebView mockWebView() {
+        return mock(WebView.class);
+    }
+
+    public static ProgressBar mockProgressBar() {
+        return mock(ProgressBar.class);
+    }
+
+    public static LinearLayout mockLinearLayout() {
+        return mock(LinearLayout.class);
+    }
+
+    public static RelativeLayout mockRelativeLayout() {
+        return mock(RelativeLayout.class);
+    }
+
+    public static FrameLayout mockFrameLayout() {
+        return mock(FrameLayout.class);
+    }
+
+    public static RecyclerView mockRecyclerView() {
+        final RecyclerView recyclerView = mock(RecyclerView.class);
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                when(recyclerView.getAdapter()).thenReturn((RecyclerView.Adapter) invocation.getArguments()[0]);
+                return null;
+            }
+        }).when(recyclerView).setAdapter(any(RecyclerView.Adapter.class));
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                when(recyclerView.getLayoutManager()).thenReturn((RecyclerView.LayoutManager) invocation.getArguments()[0]);
+                return null;
+            }
+        }).when(recyclerView).setLayoutManager(any(RecyclerView.LayoutManager.class));
+
+        return recyclerView;
+    }
+
+    public static CardView mockCardView() {
+        return mock(CardView.class);
     }
 }
