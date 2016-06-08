@@ -10,7 +10,7 @@ Gradle
 ======
 
 ```groovy
-testCompile 'de.jodamob.android:mockitoid:0.5'
+testCompile 'de.jodamob.android:mockitoid:0.7'
  
 ```
 
@@ -56,6 +56,8 @@ some mocks can have small behavior:
 `mockTextView("test")` given a Textview that will return an Editable that has string "test"
 
 `mockFragmentManager(FragmentTransaction)` will return this fragmenttransaction for every transaction started
+
+`mockRecyclerView()` will return a recyclerview that will remember adapter and laoutManager between set and get
 
 `mockMenuItem(id)` where id will be the itemId that will return a MenuItem mock for
 ..
