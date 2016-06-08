@@ -10,6 +10,7 @@ import static org.mockito.Matchers.anySetOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import android.annotation.SuppressLint;
@@ -176,9 +177,7 @@ public class AndroidMocks {
     }
 
     public static Editable mockEditable(String s) {
-        Editable value = mock(Editable.class);
-        when(value.toString()).thenReturn(s);
-        return value;
+        return spy(new EditableStub(s));
     }
 
     public static EditText mockEditText(Editable editable) {
@@ -210,10 +209,8 @@ public class AndroidMocks {
     }
 
     public static EditText prepare(String s, EditText field) {
-        Editable value = mock(Editable.class);
+        Editable value = spy(new EditableStub(s));
         when(field.getText()).thenReturn(value);
-        when(value.toString()).thenReturn(s);
-        when(value.length()).thenReturn(s.length());
         return field;
     }
 
